@@ -1,17 +1,19 @@
 class Plant
 {
-  int rate, type, size, health;
-  Plant (int a, int b, int c)
+  int rate, type, health;
+  Plant (int a, int b)
   {
     rate = a;
     type = b;
-    size = c;
     health = 100;
   }
   
   void display()
   {
-    
+     //tronc();
+     //branches();
+     //leaves();
+     //fruits();
   }
   
   void grow()
