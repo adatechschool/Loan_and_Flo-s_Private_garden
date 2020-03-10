@@ -1,9 +1,17 @@
 String mode = "day";
+//PImage soleil = loadImage("soleil.png");
+//PImage lune = loadImage("lune.png");
+PImage ciel, lune, soleil;
 
 void setup()
 {
+  ciel = loadImage("sky.png");
+  lune = loadImage("lune.png");
+  soleil = loadImage("soleil.png");
+  soleil.resize(150, 150);
+  lune.resize(150, 150);
   size(800, 600);
-  background(89, 112, 245);
+  background(222, 184, 135);
 }
 
 void draw()
@@ -18,7 +26,6 @@ void draw_trunc()
   int graineY = 550;
   int time = expanded_time();
   if (time > 100) time = 100;
-  print(time);
   strokeWeight(1 + time/8);
   stroke(45, 212, 65);
   line(graineX, graineY, graineX, graineY - time*2);
@@ -26,20 +33,23 @@ void draw_trunc()
 
 void draw_background()
 {
+  noStroke();
+  image(ciel, 0, 0);
   
-  if (count_days()%2 == 1)
-  {
-    fill(255, 0, 0, constrain(count_hours(), 0, 1));
-    rect(0, 0, width, height - 100);
-    mode = "night";
+  if (count_hours() >= 0 && count_hours() <= 12)
+  { 
+    int time_of_day = count_hours();
+    mode = "day";
+    image(soleil, time_of_day*width/12, 100);
   }
   else 
   {
-    background(89, 112, 21.25*count_hours());
-    mode = "day";
+    int time_of_night = count_hours() - 12;
+    fill(0, 0, 0, float(time_of_night)*8/100);
+    print(float(time_of_night)*8/100);
+    rect(0, 0, 800, 500);
+    image(lune, time_of_night * width/12, 100);
   }
   
-  noStroke();
-  fill(222, 184, 135);
-  rect(0, 500, width, 100);
+
 }
